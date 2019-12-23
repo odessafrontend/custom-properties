@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Переменные в CSS: сколько вы ещё планируете ждать?</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            href="shower/themes/ribbon/styles/styles.css"
+        />
+        <style>
+            .shower {
+                --slide-ratio: calc(16 / 10);
+                --color-bg: white;
+                --primary-color: black;
+            }
+
+            .slide {
+                background-color: var(--color-bg);
+                color: var(--primary-color);
+            }
+
+            .malloy-image {
+                width: 100%;
+                display: block;
+            }
+
+            .malloy-bottom {
+                width: 350px;
+                max-height: 380px;
+                overflow: hidden;
+                position: absolute;
+                right: 25px;
+                bottom: 0;
+            }
+
+            .malloy-bottom.eye {
+                max-height: 260px;
+            }
+
+            .malloy-bottom.right {
+                right: 0;
+                bottom: 50%;
+                transform: rotate(-90deg) translateX(-55%);
+            }
+
+            .shower.full .next.active.malloy-bottom {
+                animation-play-state: running;
+            }
+
+            @keyframes from-bottom {
+                from {
+                    height: 0;
+                }
+                to {
+                    height: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body class="shower list">
+        <header class="caption">
+            <h1>Переменные в CSS: сколько вы ещё планируете ждать?</h1>
+            <p>Сергей Фомин</p>
+        </header>
+
+        <section class="slide slide-cover" id="cover">
+            <h2>Переменные в CSS</h2>
+            <h3>Сколько вы ещё планируете ждать?</h3>
+            <figure class="malloy">
+                <img class="malloy__image" src="pictures/malloy.png" alt="Маллой из Бриклберри">
+            </figure>
+            <style>
+                .slide-cover .malloy {
+                    position: absolute;
+                    right: 40px;
+                    bottom: 0;
+                    width: 400px;
+                    height: 440px;
+                    overflow: hidden;
+                }
+
+                .slide-cover .malloy__image {
+                    width: 100%;
+                }
+            </style>
+        </section>
+
+        <section class="slide" id="variables">
+            <h2>
+                Переменная
+            </h2>
+            <pre>
+                <code>size = 2;</code>
+                <code class="next">width = size * 2;</code>
+                <code class="next">> 4</code>
+                <code class="next">height = size + 10;</code>
+                <code class="next">> 12</code>
+            </pre>
+        </section>
+
+        <section class="slide" id="variables-2">
+            <h2>
+                Переменная
+            </h2>
+            <pre>
+                <code class="mark">size = 10;</code>
+                <code>width = size * 2;</code>
+                <code class="mark">> 20</code>
+                <code>height = size + 10;</code>
+                <code class="mark">> 20</code>
+            </pre>
+            <figure class="malloy-bottom next">
+                <img class="malloy-image" src="pictures/malloy_2.png" alt="Маллой в шоке">
+            </figure>
+        </section>
+
+        <section class="slide slide-variables-in-css" id="variables-in-css">
+            <h2 class="shout title">
+                Как с этим обстоят дела в CSS?
+            </h2>
+            <style>
+                .slide-variables-in-css .title {
+                    font-size: 60px;
+                }
+            </style>
+        </section>
+
+        <section class="slide" id="preprocessors">
+            <h2>Препроцессоры</h2>
+            <pre>
+                <code>$base-color: #c6538c;</code>
+                <code>$normal-size: 18px;</code>
+                <code>$step: 20px;</code>
+                <code>  </code>
+                <code>h1 {</code>
+                <code>  border: 1px solid $base-color;</code>
+                <code>  font-size: $normal-size;</code>
+                <code>  margin-right: $step;</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide slide-intro" id="intro">
+            <h2 class="shout title">
+                CSS Custom Properties (CSS Variables)
+            </h2>
+            <style>
+                .slide-intro .title {
+                    font-size: 60px;
+                }
+            </style>
+        </section>
+
+        <section class="slide" id="css-variables">
+            <h2>
+                Пример
+            </h2>
+            <pre>
+                <code>h1 {</code>
+                <code>  --my-variable: red;</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide" id="css-variables-2">
+            <h2>
+                Пример
+            </h2>
+            <pre>
+                <code>h1 {</code>
+                <code>  --my-variable: red;</code>
+                <code>  color: var(--my-variable);</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide" id="css-variables-3">
+            <h2>
+                Пример
+            </h2>
+            <pre>
+                <code>h1 {</code>
+                <code>  --my-variable: red;</code>
+                <code>  color: var(--my-variable, <mark class="important">pink</mark>);</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide" id="css-variables-4">
+            <h2>
+                Пример
+            </h2>
+            <pre>
+                <code>h1 {</code>
+                <code>  --my-variable: red;</code>
+                <code>  color: var(--my-variable, pink);</code>
+                <code>}</code>
+                <code> </code>
+                <code>h1:hover {</code>
+                <code>  --my-variable: blue;</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide" id="root">
+            <h2>Глобальные переменные</h2>
+            <pre>
+                <code>:root {</code>
+                <code>  --primary-color: red;</code>
+                <code>  --self-color: blue;</code>
+                <code>}</code>
+                <div class="next">
+                    <code>  </code>
+                    <code>header {</code>
+                    <code>  background-color: var(--primary-color);</code>
+                    <code>  color: var(--self-color);</code>
+                    <code>}</code>
+                </div>
+            </pre>
+        </section>
+
+        <section class="slide slide-inherit" id="inherit">
+            <h2>Наследование</h2>
+            <div class="columns two">
+                <pre>
+                    <code>body {</code>
+                    <code>  --primary-color: red;</code>
+                    <code>  color: var(--primary-color);</code>
+                    <code>}</code>
+                </pre>
+                <pre class="next">
+                    <code>&lt;body&gt;</code>
+                    <code>  &lt;header&gt;<span class="title">Red</span>&lt;/header&gt;</code>
+                    <code>  &lt;main&gt;<span class="title">Red</span>&lt;/main&gt;</code>
+                    <code>&lt;/body&gt;</code>
+                </pre>
+            </div>
+            <style>
+                .slide-inherit .title {
+                    --primary-color: red;
+                    color: var(--primary-color);
+                }
+            </style>
+        </section>
+
+        <section class="slide slide-inherit" id="inherit">
+            <h2>Наследование</h2>
+            <div class="columns two">
+                <pre>
+                    <code>body {</code>
+                    <code>  --primary-color: red;</code>
+                    <code>  color: var(--primary-color);</code>
+                    <code>}</code>
+                    <code>  </code>
+                    <code class="mark">header {</code>
+                    <code class="mark">  --primary-color: green;</code class="mark">
+                    <code class="mark">}</code>
+                </pre>
+                <pre>
+                    <code>&lt;body&gt;</code>
+                    <code class="mark">  &lt;header&gt;<span class="title subtitle">Green</span>&lt;/header&gt;</code>
+                    <code>  &lt;main&gt;<span class="title">Red</span>&lt;/main&gt;</code>
+                    <code>&lt;/body&gt;</code>
+                </pre>
+            </div>
+            <style>
+                .slide-inherit .subtitle {
+                    --primary-color: green;
+                }
+            </style>
+        </section>
+
+        <section class="slide slide-areas" id="areas">
+            <h2>Область видимости</h2>
+            <div class="columns two">
+                <pre>
+                    <code>header {</code>
+                    <code>  --text-color: red;</code>
+                    <code>  color: var(--text-color);</code>
+                    <code>}</code>
+                    <code> </code>
+                    <code>main {</code>
+                    <code>  color: var(--text-color);</code>
+                    <code>}</code>
+                </pre>
+                <pre>
+                    <code>&lt;body&gt;</code>
+                    <code>  &lt;header&gt;<span class="title">Red</span>&lt;/header&gt;</code>
+                    <code>  &lt;main&gt;Not Red&lt;/main&gt;</code>
+                    <code>&lt;/body&gt;</code>
+                </pre>
+            </div>
+            <style>
+                .slide-areas {
+                    --text-color: red;
+                }
+                
+                .slide-areas .title {
+                    color: var(--text-color);
+                }
+            </style>
+        </section>
+
+        <section class="slide" id="task">
+            <h2>Задача</h2>
+            <pre>
+                <code>:root {</code>
+                <code>  --primary-color: 20px;</code>
+                <code>}</code>
+                <div class="next">
+                    <code>header {</code>
+                    <code>  background-color: red;</code>
+                    <code>}</code>
+                </div>
+                <div class="next">
+                    <code>header {</code>
+                    <code>  background-color: var(--primary-color);</code>
+                    <code>}</code>
+                </div>
+            </pre>
+            <figure class="malloy-bottom right next">
+                <img class="malloy-image" src="pictures/malloy_2.png" alt="Маллой в шоке">
+            </figure>
+        </section>
+
+        <section class="slide" id="math">
+            <h2>Математика</h2>
+            <h3>Препроцессоры</h3 class="title">
+            <pre>
+                <code>$base: 140px;</code>
+                <code>$width:  $base / 4;</code>
+            </pre>
+            <div class="next">
+                <h3>CSS-переменные</h3>
+                <pre>
+                    <code>--base: 140px;</code>
+                    <code>--width: calc(var(--base) / 4);</code>
+                </pre>
+            </div>
+        </section>
+
+        <section class="slide" id="emulation">
+            <h2>Эмуляция несуществующих свойств</h2>
+            <pre>
+                <code>header {</code>
+                <code>  --box-shadow-color: yellow;</code>
+                <code>  box-shadow: 0 0 30px var(--box-shadow-color);</code>
+                <code>}</code>
+                <code>  </code>
+                <code>header:hover {</code>
+                <code>  --box-shadow-color: orange;</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide slide-support" id="support">
+            <h2>Поддержка</h2>
+            <figure >
+                <img class="image" src="pictures/support.png" alt="Визуализация поддержки браузерами кастомных свойств">
+                <figcaption class="copyright right">
+                    <a href="https://caniuse.com/#feat=css-variables" target="_blank">caniuse</a>
+                </figcaption>
+            </figure>
+            <figure class="malloy-bottom eye next">
+                <img class="malloy-image" src="pictures/malloy_2.png" alt="Маллой в шоке">
+            </figure>
+            <style>
+                .slide-support .image {
+                    width: 100%;
+                }
+            </style>
+        </section>
+
+        <section class="slide" id="post-css">
+            <h2 class="shout">
+                <a href="https://github.com/postcss/postcss-custom-properties" target="_blank">postcss-custom-properties</a>
+            </h2>
+        </section>
+
+        <section class="slide" id="when">
+            <h2 class="shout">Когда использовать?</h2>
+        </section>
+
+        <section class="slide" id="themes-now">
+            <h2 class="shout">Темы</h2>
+        </section>
+
+        <section class="slide" id="themes">
+            <h2>Темы: Генерация независимых стилей</h2>
+            <pre>
+                <code>&lt;link rel="stylesheet" href="light-theme.css"&gt;</code>
+                <code>&lt;link rel="stylesheet" href="dark-theme.css"&gt;</code>
+            </pre>
+        </section>
+
+        <section class="slide" id="themes-2">
+            <h2>Темы: Глобальный класс</h2>
+            <div class="columns two">
+                <pre>
+                    <code>&lt;body&gt;</code>
+                    <code>  &lt;h1&gt;Title&lt;/h1&gt;</code>
+                    <code>&lt;/body&gt;</code>
+                    <code>  </code>
+                    <code>h1 {</code>
+                    <code>  color: red;</code>
+                    <code>}</code>
+                </pre>
+                <pre class="next">
+                    <code>&lt;body class="<mark class="important">dark-theme</mark>"&gt;</code>
+                    <code>  &lt;h1&gt;Title&lt;/h1&gt;</code>
+                    <code>&lt;/body&gt;</code>
+                    <code>  </code>
+                    <code><mark class="important">body.dark-theme</mark> h1 {</code>
+                    <code>  color: blue;</code>
+                    <code>}</code>
+                </pre>
+            </div>
+        </section>
+
+        <section class="slide slide-themes" id="themes-3">
+            <h2>Темы: Переназначение переменных</h2>
+            <div class="columns two">
+                <pre>
+                    <code>:root {</code>
+                    <code>  --color: red;</code>
+                    <code>  --size: 16px;</code>
+                    <code>}</code>
+                    <code>  </code>   
+                    <code>button {</code>
+                    <code>  color: var(--color);</code>
+                    <code>  font-size: var(--size);</code>
+                    <code>}</code>
+                </pre>
+                <pre>
+                    <code><mark class="important">body.dark-theme</mark> {</code>
+                    <code>  --color: white;</code>
+                    <code>  --size: 15px;</code>
+                    <code>}</code>
+                </pre>
+            </div>
+            <button class="demo next">Demo</button>
+            <style>
+                .slide-themes.dark-theme {
+                    --color-bg: #212121;
+                    --color-grey: white;
+                    --primary-color: white;
+                }
+
+                .slide-themes .demo {
+                    position: absolute;
+                    right: 100px;
+                    bottom: 35px;
+                }
+            </style>
+            <script>
+                (function(){
+                    const checkbox = document.querySelector('#themes-3 .demo');
+                    const slide = document.getElementById('themes-3');
+
+                    checkbox.addEventListener('click', () => {
+                        slide.classList.toggle('dark-theme')
+                    });
+                })();
+            </script>
+        </section>
+
+        <section class="slide slide-themes" id="themes-4">
+            <h2>Темы: Произвольный цвет</h2>
+            <pre>
+                <code>const root = document.querySelector(':root');</code>
+                <div class="next">
+                    <code>  </code>
+                    <code>// Прочитать переменную</code>
+                    <code>const styles = getComputedStyle(root);</code>
+                    <code>const primary = styles.getPropertyValue('--primary-color');</code>
+                </div>
+                <div class="next">
+                    <code>  </code>
+                    <code>// Записать новое значение</code>
+                    <code>root.style.setProperty('--primary-color', 'green');</code>
+                </div>
+            </pre>
+            <input type="color" id="color" class="demo next" value="#eeeeee">
+            <script>
+                (function(){
+                    const slide = document.querySelector('#themes-4.slide');
+                    const color = document.getElementById('color');
+                    const styles = getComputedStyle(slide);
+
+                    color.addEventListener('change', function(event) {
+                        slide.style.setProperty('--color-bg', event.target.value);
+                    });
+                })();
+            </script>
+        </section>
+
+        <section class="slide" id="responsive">
+            <h2 class="shout">Отзывчивая вёрстка</h2>
+        </section>
+
+        <section class="slide" id="responsive-2">
+            <h2>Обычно мы делаем так</h2>
+            <pre>
+                <code>.header .wrapper.wrapper--size-m {</code>
+                <code>  padding: 10px;</code>
+                <code>}</code>
+                <div class="next">
+                    <code>  </code>
+                    <code>@media (min-width: 768px) {</code>
+                    <code>  .header .wrapper.wrapper--size-m {</code>
+                    <code>      padding: 15px;</code>
+                    <code>  }</code>
+                    <code>}</code>
+                </div>
+            </pre>
+        </section>
+
+        <section class="slide" id="responsive-2">
+            <h2>Так мы делаем с CSS Variables</h2>
+            <pre>
+                <code>:root {</code>
+                <code>  --offset: 10px;</code>
+                <code>}</code>
+                <code>  </code>
+                <code>.header .wrapper.wrapper--size-m {</code>
+                <code>  padding: var(--offset);</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide" id="responsive-3">
+            <h2>Так мы делаем с CSS Variables</h2>
+            <pre>
+                <code>@media (min-width: 768px) {</code>
+                <code>  :root {</code>
+                <code>      --offset: 15px;</code>
+                <code>  }</code>
+                <code>}</code>
+            </pre>
+            <figure class="malloy-bottom next">
+                <img class="malloy-image" src="pictures/malloy_2.png" alt="Маллой в шоке">
+            </figure>
+        </section>
+
+        <section class="slide" id="svg">
+            <h2>SVG</h2>
+            <pre>
+                <code>&lt;svg class="svg-with-attr" viewBox="0 0 55.867 55.867"&gt;</code>
+                <code>  &lt;path</code>
+                <code>      stroke="var(--iconStroke)"</code>
+                <code>      stroke-width="var(--iconStrokeWidth)"</code>
+                <code>      fill="var(--iconFill)"</code>
+                <code>      d="..."&gt;</code>
+                <code>&lt;/svg&gt;</code>
+            </pre>
+            <a href="https://habr.com/ru/post/480806/" target="_blank" class="copyright">portadell</a>
+        </section>
+
+        <section class="slide" id="svg-2">
+            <h2>SVG</h2>
+            <pre>
+                <code>.svg-with-attr {</code>
+                <code>  --iconFill: #eeeeee;</code>
+                <code>  --iconStroke: #000000;</code>
+                <code>  --iconStrokeWidth: 1px;</code>
+                <code>}</code>
+            </pre>
+            <a href="https://habr.com/ru/post/480806/" target="_blank" class="copyright">portadell</a>
+        </section>
+
+        <section class="slide slide-animation" id="animation">
+            <h2>Анимации</h2>
+            <figure>
+                <svg class="svg" id="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 505">
+                    <defs>
+                        <clipPath id="clip-path">
+                        <circle id="circle" cx="250" cy="250" r="200"/>
+                        </clipPath>
+                        <radialGradient id="sunGlare" cx="146.18" cy="185.52" r="90"  gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="var(--sun)"/>
+                        <stop offset="1" stop-color="var(--sky)" />
+                        </radialGradient>
+                    </defs>
+                    <g id="world" clip-path="url(#clip-path)">
+                        <g id="sky">
+                        <circle id="sky_disk" fill="var(--sky)" cx="250" cy="450" r="524.95"/>
+                        <circle id="glare" fill="url(#sunGlare)" cx="146.18" cy="185.52" r="90"/>
+                        <circle id="sun_core" fill="var(--sun)" cx="146.18" cy="185.52" r="25"/>  
+                        </g>
+                        <path id="mountains" fill="var(--mountains)" d="M500 500H0V366c27.18-20.91 87.73-70 104.37-88.25l4.89 10.49 12.39-12.39 10.14 12.39 23.34-24.79L183 293.3l61.38-50.36 4.52 19.39 21.4 6.76 26.34-14.36c13.93 17.18 30 35.2 38.43 38.58 16.9 6.76 54.07 13.52 54.07 13.52L500 393z"/>
+                        <path id="snow2" fill="var(--snow)" d="M296.67 254.72l-26.34 14.36-21.4-6.76-4.52-19.39 26.48-21.73s11.84 16.35 25.78 33.52z"/>
+                        <path id="snow1" fill="var(--snow)" d="M155.13 263.44l-23.34 24.79-10.14-12.39-12.39 12.39-4.89-10.49a459.84 459.84 0 0 0 30.23-36.26z"/>
+                        <path id="trees_z4" fill="var(--trees-z4)" d="M170 360l14-54 4.81 20.33 4.19-29.08 3.32 24.09 4.15-18 3 32.4 5.26-26.59 1.66 29.63 5-41.54 2.77 41.54 4.15-28.25s1.66 32.68 2.22 31.3 5.54-31.85 5.82-31 2.77 30.74 3.32 28.8 5.54-31.85 5.54-31.85l8.86 34.06 3.93-37.39 6 28.55 6-33 9 60z"/>
+                        <path fill="var(--trees-z3)" d="M402.15 302.57l-2.22 34.06-8.31-28.8-3.88 37.39-8.86-34.06s-5 29.91-5.54 31.85-3-28-3.32-28.8-5.26 29.63-5.82 31-2.2-31.28-2.2-31.28l-4.15 28.25-2.77-41.54-5 41.54-1.66-29.63-5.26 26.59-3-32.4-4.15 18-3.32-24.09-4.15 29.08-2.54-21.62L313 350h-71l-5.43-39.54-2.22 34.06-8.35-28.8-3.88 37.39-8.81-34.11s-5 29.91-5.54 31.85-3-28-3.32-28.8-5.26 29.63-5.82 31-2.22-31.29-2.22-31.29l-4.15 28.25-2.77-41.54-5 41.54-1.66-29.63-5.25 26.62-3-32.4-4.15 18-3.32-24.09-4.21 29.09-2.49-21.6-6.09 24.09v20.24L410 360v-14.78z"/>
+                        <ellipse id="hill_right" fill="var(--hills)" cx="308.07" cy="423.4" rx="214.58" ry="95.74"/>
+                        <ellipse id="hill_left" fill="var(--hills)" cx="150.38" cy="408.76" rx="105.32" ry="67.58"/>
+                        <path id="trees_z2" fill="var(--trees-z2)"  d="M77.72 400l24.78-100.5 10.14 87.86 16.9-118.27 13.52 98L160 293.87l12.39 131.79 21.4-108.13L200.5 438l20.28-169L232 438l16.9-114.89s6.76 132.92 9 127.28 22.58-129.49 23.7-126.11 11.26 125 13.52 117.15 22.53-129.54 22.53-129.54l36 138.55 15.77-152.06 33.79 117.15 9-138.55L433 400h67v100H0V400z"/>
+                        <path id="trees_z1" fill="var(--trees-z1)" d="M60.83 421l24.78-96.72 10.14 87.86 16.9-118.27 13.52 98 16.9-73.22 12.39 131.79 21.4-108.13 6.76 120.53 20.28-169 11.26 169L232 347.93s6.76 132.92 9 127.28 22.53-129.54 23.65-126.16 11.26 125 13.52 117.15 22.53-129.54 22.53-129.54l36 138.55 15.77-152.06 33.89 117.15 9-138.55L417.17 421H500v79H0v-79z"/>
+                        <path id="shadow" class="shadow" d="M-40.55-27.16V536h563.2V-27.16zm261.89 478.72c-101.09 0-183-90-183-201.06s81.95-201.06 183-201.06 183 90 183 201.06-81.91 201.06-183 201.06z"/>
+                    </g>
+                    <g id="rocket">
+                        <path d="M305.58 126.36L185.46 281.85l69.05-66.75-12.14 16.49 90.76-77.68-27.55-27.55z" fill="var(--snow)"/>
+                        <path id="rocket_shadow" fill="var(--rocket-2)" d="M321.56 107.24c-1 1-2.08 2.1-3.06 3.17-6.2-2.43-12.41-3.36-19.58.23-9.89 4.95-18.22 16.37-19.48 26.3a1.52 1.52 0 0 0 2.81 1c2.35-2.94 7.24-7.32 10.79-9.1a24.37 24.37 0 0 1 12.41-2.61l4.56 4.56 9.23 9.23 36.33-36.32a7.08 7.08 0 0 1 10-10L385 74.16c-15.94-1.75-41.21 10.84-63.44 33.08z"/>
+                        <path id="rocket-2" data-name="rocket" fill="var(--rocket-1)" d="M352.4 138.1c-1.08 1.07-2.16 2.12-3.26 3.15a2 2 0 0 1 .21.38c2.47 6.2 3.41 12.41-.16 19.59-4.92 9.89-16.32 18.26-26.25 19.56-1.6.21-2.26-1.76-1-2.81 2.92-2.36 7.29-7.25 9.06-10.81a24.11 24.11 0 0 0 2.53-13l-.07.06L319.23 140l36.33-36.32a7.08 7.08 0 1 0 10-10L385 74.16h.4c2.04 16-10.58 41.51-33 63.94z"/>
+                    </g>
+                </svg>
+                <figcaption class="copyright right">
+                    <a class="link" href="https://codepen.io/g12n/pen/ZLYqyr" target="_blank">A pen by Michael Gehrmann</a>
+                </figcaption>
+            </figure>
+            <style>
+                .slide-animation {
+                    --trees-z1: hsl(20, 60%, 20%);
+                    --trees-z2: hsl(20, 60%, 30%);
+                    --trees-z3: hsl(20, 60%, 50%);
+                    --trees-z4: hsl(20, 60%, 60%);
+                    --rocket-1: #f00;
+                    --rocket-2: #b00;
+                    --hills: hsl(20, 60%, 40%);
+                    --mountains: #f90;
+                    --snow: #fa0;
+                    --sky: #f60;
+                    --sun: #f90;
+                    --angle: -20deg;
+                    transition-duration: 2s;
+                    transition-property: color, background-color;
+                }
+
+                .slide-animation .svg {
+                    margin: 0 auto;
+                    width: 400px;
+                    display: block;
+                }
+
+                .slide-animation .svg * {
+                    transition: all 2s;
+                }
+
+                .slide-animation:hover .svg{
+                    --trees-z1: #0b3253;
+                    --trees-z2: #0c3b5b;
+                    --trees-z3: #1e566b;
+                    --trees-z4: #bcc7b0;
+                    --rocket-1: #bfe2cd;
+                    --rocket-2: #c5efd4;
+                    --hills: #486a72;
+                    --mountains: #bdd8ba;
+                    --snow: #d2e8cf;
+                    --sky: #a0cdb3;
+                    --sun: #fff;
+                    --angle: 20deg;
+                }
+
+                .slide-animation #sky {
+                    transform-origin: 250px 450px;
+                    transform: rotate(var(--angle));
+                }
+
+                .slide-animation .shadow {
+                    opacity: 0.24;
+                }
+
+                .slide-animation:hover {
+                    --color-grey: white;
+                    --color-bg: #0b3253;
+                }
+            </style>
+        </section>
+
+        <section class="slide" id="colors">
+            <h2>Цвет</h2>
+            <pre>
+                <code>/* HEX - красный, зелёный, синий */</code>
+                <code>color: #ff0000;</code>
+                <code>  </code>
+                <code>/* RGB - красный, зелёный, синий */</code>
+                <code>color: rgb(255, 0, 0);</code>
+                <code>  </code>
+                <code>/* HSL - цвет, насыщенность, свечение */</code>
+                <code>color: hsl(0, 100%, 50%);</code>
+            </pre>
+            <a href="https://medium.com/@elad/why-css-hsl-colors-are-better-83b1e0b6eead" target="_blank" class="copyright">Elad Shechter</a>
+        </section>
+
+        <section class="slide slide-hsl" id="hsl">
+            <h2>HSL</h2>
+            <figure>
+                <img class="image" src="pictures/hsl.png" alt="Схема цветообразования в HSL">
+                <figcaption>
+                    <a href="https://medium.com/@elad/why-css-hsl-colors-are-better-83b1e0b6eead" target="_blank" class="copyright">Elad Shechter</a>
+                </figcaption>
+            </figure>
+            <style>
+                .slide-hsl .image {
+                    width: 350px;
+                    display: block;
+                    margin: 0 auto;
+                }
+            </style>
+        </section>
+
+        <section class="slide slide-hsl" id="hsl-2">
+            <h2>HSL</h2>
+            <pre>
+                <code>:root {</code>
+                <code>  --color: 60;</code>
+                <code>  --light: hsla(var(--color), 50%, 75%, 100%);</code>
+                <code>  --normal: hsla(var(--color), 50%, 50%, 100%);</code>
+                <code>  --darker: hsla(var(--color), 50%, 35%, 100%);</code>
+                <code>}</code>
+            </pre>
+            <figure>
+                <img class="image" src="pictures/colors.jpg" alt="Палитра полученных цветов">
+                <figcaption>
+                    <a href="https://medium.com/@elad/why-css-hsl-colors-are-better-83b1e0b6eead" target="_blank" class="copyright">Elad Shechter</a>
+                </figcaption>
+            </figure>
+        </section>
+
+        
+
+        <section class="slide slide-pre" id="pre">
+            <h2 class="shout title">Так что с препроцессорами?</h2>
+            <style>
+                .slide-pre .title {
+                    font-size: 60px;
+                }
+            </style>
+        </section>
+
+         <section class="slide" id="pre-2">
+            <h2>Основные преимущества препроцессоров</h2>
+            <ol>
+                <li>Переменные</li>
+                <li class="next">Миксины</li>
+                <li class="next">Вложенность при написании стилей</li>
+            </ol>
+        </section>
+
+        <section class="slide slide-pre" id="pre-3">
+            <h2>Основные преимущества препроцессоров</h2>
+            <ol>
+                <li>
+                    <span class="del gray">Переменные</span> (CSS Custom Properties)
+                </li>
+                <li>Миксины</li>
+                <li>Вложенность при написании стилей</li>
+            </ol>
+            <style>
+                .slide-pre .del {
+                    text-decoration: line-through;
+                }
+
+                .slide-pre .gray {
+                    color: var(--color-grey);
+                }
+            </style>
+        </section>
+
+        <section class="slide slide-pre" id="pre-4">
+            <h2>Основные преимущества препроцессоров</h2>
+            <ol>
+                <li>
+                    <span class="del gray">Переменные</span> (CSS Custom Properties)
+                </li>
+                <li>
+                    <span class="gray">Миксины</span> (Частичная реализация в Custom Properties, <a href="https://tabatkins.github.io/specs/css-apply-rule/" target="_blank">Черновик @apply</a>)
+                </li>
+                <li>Вложенность при написании стилей</li>
+            </ol>
+        </section>
+
+        <section class="slide slide-pre" id="pre-5">
+            <h2>Основные преимущества препроцессоров</h2>
+            <ol>
+                <li>
+                    <span class="del gray">Переменные</span> (CSS Custom Properties)
+                </li>
+                <li>
+                    <span class="gray">Миксины</span> (Частичная реализация в Custom Properties, <a href="https://tabatkins.github.io/specs/css-apply-rule/" target="_blank">Черновик @apply</a>)
+                </li>
+                <li>
+                    <span class="gray">Вложенность при написании стилей</span> (<a href="http://tabatkins.github.io/specs/css-nesting/" target="_blank">Черновик CSS Nesting Module</a>)
+                </li>
+            </ol>
+            <section class="next">
+                <h3>Ну или PostCSS</h3>
+                <ul>
+                    <li>
+                        <a href="https://github.com/csstools/postcss-preset-env" target="_blank">https://github.com/csstools/postcss-preset-env</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/jonathantneal/postcss-nesting" target="_blank">https://github.com/jonathantneal/postcss-nesting</a>
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <section class="slide" id="pre-6">
+            <h2>Комбинируйте</h2>
+            <pre>
+                <code>.title {</code>
+                <code>  color: var(--primary-color);</code>
+                <code>  &:hover {</code>
+                <code>      --primary-color: red;</code>
+                <code>  }</code>
+                <code>}</code>
+            </pre>
+        </section>
+
+        <section class="slide slide-pre" id="pre-7">
+            <figure>
+                <img class="mem" src="pictures/new_work.jpg" alt="Несмешной мем про разработчиков препроцессоров">
+            </figure>
+            <style>
+                .slide-pre .mem {
+                    height: 500px;
+                    display: block;
+                    margin: 0 auto;
+                }
+            </style>
+        </section>
+
+        <section class="slide slide-summary" id="summary">
+            <h2>Выводы</h2>
+            <ol>
+                <li class="next">
+                    Переменные в CSS хорошо поддерживаются нормальными браузерами. Для остальных есть PostCSS.
+                </li>
+                <li class="next">
+                    Это лучше, чем в препроцессорах, потому что они "живые".
+                </li>
+                <li class="next">
+                    Порядок в коде. Меньше кода в медиавыражениях.
+                </li>
+                <li class="next">
+                    Темы, SVG и анимации - намного удобнее.
+                </li>
+                <li class="next">
+                    Препроцессоры умрут. Не нужно учить их синтаксис.
+                </li>
+            </ol>
+            <div>
+                <a href="https://t.me/boringfrontend" target="_blank" class="link next">
+                    t.me/boringfrontend
+                </a>
+                <a href="https://fom.in.ua/css-custom-properties" target="_blank" class="link next">
+                    fom.in.ua/css-custom-properties
+                </a>
+            </div>
+            <figure class="malloy-end next">
+                <img class="malloy-end-image" src="pictures/malloy_3.png" alt="Маллой">
+            </figure>
+            <style>
+                .slide-summary .link {
+                    margin-right: 20px;
+                }
+
+                .slide-summary .malloy-end {
+                    overflow: hidden;
+                    width: 200px;
+                    position: absolute;
+                    right: 60px;
+                    bottom: 10px;
+                }
+
+                .slide-summary .malloy-end-image {
+                    width: 100%;
+                }
+            </style>
+        </section>
+
+        <section class="slide" id="links">
+            <h2>Полезные ссылки</h2>
+            <ol>
+                <li>
+                    <a target="_blank" href="https://css-tricks.com/patterns-for-practical-css-custom-properties-use">
+                        https://css-tricks.com/patterns-for-practical-css-custom-properties-use
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://vanseodesign.com/css/custom-properties/">
+                        http://vanseodesign.com/css/custom-properties/
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://www.smashingmagazine.com/2017/04/start-using-css-custom-properties/">
+                        https://www.smashingmagazine.com/2017/04/start-using-css-custom-properties/
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://css-tricks.com/the-power-and-fun-of-scope-with-css-custom-properties">
+                        https://css-tricks.com/the-power-and-fun-of-scope-with-css-custom-properties
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://codyhouse.co/blog/post/using-css-custom-properties-to-reduce-the-size-of-your-css">
+                        https://codyhouse.co/blog/post/using-css-custom-properties-to-reduce-the-size-of-your-css
+                    </a>
+                </li>
+            </ol>
+        </section>
+
+        <section class="slide" id="links">
+            <h2>Ссылки из доклада</h2>
+            <ol>
+                <li>
+                    <a target="_blank" href="https://www.w3.org/TR/css-variables/">https://www.w3.org/TR/css-variables/</a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://caniuse.com/#feat=css-variables">https://caniuse.com/#feat=css-variables</a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://habr.com/ru/post/480806/">https://habr.com/ru/post/480806/</a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://codepen.io/g12n/pen/ZLYqyr">https://codepen.io/g12n/pen/ZLYqyr</a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://medium.com/@elad/why-css-hsl-colors-are-better-83b1e0b6eead">https://medium.com/@elad/why-css-hsl-colors-are-better-83b1e0b6eead</a>
+                </li>
+            </ol>
+        </section>
+
+        <footer class="badge">
+            <a href="https://github.com/shower/shower">Powered by Shower</a>
+        </footer>
+
+        <div class="progress"></div>
+
+        <script src="shower/shower.min.js"></script>
+    </body>
+</html>
